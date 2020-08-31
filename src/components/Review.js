@@ -1,10 +1,12 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { getDatabaseCart, removeFromDatabaseCart } from '../utilities/databaseManager';
+import { Link } from 'react-router-dom';
+import { getDatabaseCart, removeFromDatabaseCart, processOrder } from '../utilities/databaseManager';
 import fakeData from '../fakeData';
 import { useState } from 'react';
 import ReviewProduct from './ReviewProduct';
 import Cart from './Cart/Cart';
+import happyImg from '../images/giphy.gif'
 
 const Review = () => {
     const [cart, setCart] = useState([])
@@ -23,6 +25,16 @@ const Review = () => {
        removeFromDatabaseCart(pdKey)
        setCart(newCart)
     }
+    const [orderPlace, setOrderPlace] = useState(false)
+    const placeOrder= ()=>{
+        setCart([])
+        setOrderPlace(true)
+        processOrder()
+    }
+    let thankYou;
+    if(orderPlace){
+        thankYou = <img src={happyImg} alt=''></img>
+    }
     return (  
         <div className='container'>
                 <div className="row mt-2">
@@ -31,10 +43,11 @@ const Review = () => {
                         {
                         cart.map(product=><ReviewProduct key ={product.key} product={product} removeProduct={removeProduct}></ReviewProduct>)
                         }
+                        {thankYou}
                     </div>
                     <div className="col-md-2 pt-4">
                         <Cart cart={cart}>
-                                <Link className='btn btn-warning btn-block' to={'/review'}>Review Your Order</Link>
+                                <Link onClick={placeOrder} className='btn btn-warning btn-block' >Place Order</Link>
                         </Cart>
                     </div>
                 </div>
