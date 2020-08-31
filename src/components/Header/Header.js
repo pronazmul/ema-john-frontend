@@ -1,29 +1,30 @@
 import React from 'react';
 import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import logo from '../../images/logo.png'
+import { Link } from 'react-router-dom';
 const Header = () => {
     return (
         <div>
             {/* Header Images */}
             <img className='d-block mx-auto pt-2' height='80' width='290' src={logo} alt=""/>
             {/* Navigation Bar */}
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                            <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        <ul className="navbar-nav">
+                            <li className="nav-item active">
+                                <Link className="nav-link" to={'/'}>Shop</Link>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/review">Order Review</a>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/review'}>Order Review</Link>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/mannage">Mannage Inventory Here</a>
+                            <li className="nav-item">
+                                <Link className="nav-link" to={'/inventory'}>Mannage Inventory</Link>
                             </li>
-                            </ul>
-                        </div>
+                        </ul>
+                    </div>
                 </nav>
         </div>
     );

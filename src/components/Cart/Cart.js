@@ -3,7 +3,7 @@ import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 function Cart(props) {
 
-    const shippingCalculate= num=>{
+    const shippingFeeCalculate = num=>{
         let Charge =0
         if(num>0 && num<25){ Charge= 12;}
         else if(num>=25 && num<=50){Charge=7;}
@@ -12,8 +12,8 @@ function Cart(props) {
     }
 
     const cart = props.cart;
-    const total = Number((cart.reduce((total,data)=> total + data.price,0)).toFixed(2))
-    const shippingCharge = shippingCalculate(total);
+    const total = Number((cart.reduce((total,data)=> total + data.price * data.quantity,0)).toFixed(2))
+    const shippingCharge = shippingFeeCalculate(total);
     const beforeTax = total+shippingCharge;
     const estimateTax = Number((total/10).toFixed(2));
     const grandTotal = Number((beforeTax + estimateTax).toFixed(2));
@@ -27,9 +27,9 @@ function Cart(props) {
             <p className='m-0'> <small> Total Before Tax : ${beforeTax}</small></p>
             <p className='m-0 pb-3'> <small> Estimate Tax : ${estimateTax}</small></p>
             <h6>Total Amount: ${grandTotal}</h6>
-            <button className='btn btn-warning btn-block'>Review Your Order</button>
-
-
+            {
+            props.children
+            }
 
         </div>
     );
