@@ -16,12 +16,12 @@ import Login from './components/Login/Login';
 import Shipping from './components/Shipping/Shipping';
 import { createContext } from 'react';
 import { useState } from 'react';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 export const contexUser = createContext()
 function App() {
   const [SignInUser, setSignInUser] = useState({})
   return (
     <contexUser.Provider value={[SignInUser, setSignInUser]}>
-            <h1>Email: {SignInUser.email}</h1>
             <Router>
                 <Header></Header>
             <Switch>
@@ -33,17 +33,17 @@ function App() {
                 <Review></Review>
               </Route>
 
-              <Route path='/inventory'>
+              <PrivateRoute path='/inventory'>
                 <Inventory></Inventory>
-              </Route>
+              </PrivateRoute>
 
               <Route path='/login'>
                 <Login></Login>
               </Route>
 
-              <Route path='/shipping'>
+              <PrivateRoute path='/shipping'>
                 <Shipping></Shipping>
-              </Route>
+              </PrivateRoute>
 
               <Route path='/product/:key'>
                 <SingleProduct></SingleProduct>

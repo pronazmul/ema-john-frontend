@@ -25,16 +25,16 @@ const Review = () => {
        removeFromDatabaseCart(pdKey)
        setCart(newCart)
     }
-    const [orderPlace, setOrderPlace] = useState(false)
+    // const [orderPlace, setOrderPlace] = useState(false)
     const placeOrder= ()=>{
         setCart([])
-        setOrderPlace(true)
+        // setOrderPlace(true)
         processOrder()
     }
-    let thankYou;
-    if(orderPlace){
-        thankYou = <img src={happyImg} alt=''></img>
-    }
+    // let thankYou;
+    // if(orderPlace){
+    //     thankYou = <img src={happyImg} alt=''></img>
+    // }
     return (  
         <div className='container'>
                 <div className="row mt-2">
@@ -43,11 +43,11 @@ const Review = () => {
                         {
                         cart.map(product=><ReviewProduct key ={product.key} product={product} removeProduct={removeProduct}></ReviewProduct>)
                         }
-                        {thankYou}
+                        {/* {thankYou} */}
                     </div>
                     <div className="col-md-2 pt-4">
                         <Cart cart={cart}>
-                                <Link onClick={placeOrder} className='btn btn-warning btn-block' >Place Order</Link>
+                                <Link to={'/shipping'} onClick={placeOrder} className='btn btn-warning btn-block' >Proced Checkout</Link>
                         </Cart>
                     </div>
                 </div>

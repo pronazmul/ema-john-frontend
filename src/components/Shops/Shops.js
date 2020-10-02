@@ -8,17 +8,23 @@ import { addToDatabaseCart, getDatabaseCart } from '../../utilities/databaseMana
 import { useEffect } from 'react';
 const Shops = () => {
     
-    const first10 = fakeData.slice(0,10)
-    const [product, setProduct] = useState(first10)
+    // const first10 = fakeData.slice(0,10)
+const [product, setProduct] = useState([])
     const [cart, setCart] = useState([]);
+
+    useEffect(()=>{
+            fetch('http://localhost:5000/product')
+            .then(res=> res.json())
+            .then(data=>setProduct(data))
+    },[])
 
     useEffect(()=>{
         const savedData = getDatabaseCart()
         const keys = Object.keys(savedData)
         const existProducts=  keys.map(key=>{
-                        const product = fakeData.find(pd => pd.key === key)
-                        product.quantity = savedData[key]
-            return product
+                        const pd = product.find(pd => pd.key === key)
+                        pd.quantity = savedData[key]
+            return pd
         })
         setCart(existProducts)
     },[])

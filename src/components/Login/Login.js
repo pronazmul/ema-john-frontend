@@ -5,6 +5,7 @@ import firebaseConfig from './firebaseConfig'
 import { useState } from 'react'
 import { useContext } from 'react'
 import { contexUser } from '../../App'
+import { useHistory, useLocation } from 'react-router-dom'
 
 firebase.initializeApp(firebaseConfig)
 
@@ -21,6 +22,11 @@ const Login = () => {
         isSignIn: false
     })
 
+    const history = useHistory()
+    const location = useLocation()
+
+    let { from } = location.state || { from: { pathname: "/" } };
+
     const hadleSignInGoogle = () => {
         firebase.auth().signInWithPopup(provider)
             .then(res => {
@@ -31,9 +37,9 @@ const Login = () => {
                     email: email,
                     photo: photoURL
                 }
-                setUser(userData)
-                
+                setUser(userData)                
                 setSignInUser(userData)
+                history.replace(from)
             })
     }
 
