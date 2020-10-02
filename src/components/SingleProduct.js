@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import fakeData from '../fakeData';
 import Product from './Product/Product';
 
 const SingleProduct = () => {
     const {key} = useParams()
-    const product = fakeData.find(pd=> pd.key=== key)
+    const[singleData, setSingleData] = useState([])
+        
+    useEffect(()=>{
+            fetch(`http://localhost:5000/product/${key}`)
+            .then(res => res.json())
+            .then(data=> setSingleData(data))
+        },[])
+
     return (
         <div className='jumbotron text-center'>
-            <Product addCartBtn={false} product={product}></Product>
+            {singleData.length>0 && <Product addCartBtn={false} product={singleData[0]}></Product>}            
         </div>
     );
 };
